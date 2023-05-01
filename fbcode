@@ -1,0 +1,47 @@
+
+describe('Automating bebo site',()=>{
+    it('Test case to verify the highlighted tabs',()=>{
+       //visiting the url
+        cy.visit('./');
+
+       //Clicking on india careers link
+       cy.findAllByRole('link',{name:"India Careers"}).click();
+
+       //assertion to check the url
+       cy.url().should('include','/careers');
+
+
+    //Using attributes
+       //Verifying learning and development tab to be highlighted
+       cy.get('[data-toggle=".learning-and-developmentIndia_Careers"]').should('have.class', 'active');
+
+       //Clicking on development tab 
+       cy.get('[data-toggle=".developmentIndia_Careers"]').click();
+
+       //Verifying development tab to be highlighted
+       cy.get('[data-toggle=".developmentIndia_Careers"]').should('have.class', 'active');
+
+       ////Clicking on learning and development tab 
+       cy.get('[data-toggle=".learning-and-developmentIndia_Careers"]').click();
+    
+    //Verifying the job title 
+    cy.findByRole('heading',{name:"Learning and Development Content Designer 4225 Apply Now"});
+
+    //Verifying the employment type
+   cy.findByText('Experience: 2 - 5 Years').within(() => { 
+      cy.findByText('Employment Type: Full-Time').should('be.visible'); 
+   });
+   
+    //Clicking on Apply now link
+    cy.findByRole('link',{name:"Apply Now"}).invoke('removeAttr','target').invoke('attr','target','_self').click();
+
+    //Verifying the url
+    cy.url().should('include','https://bebotechnologiesin.mobile-recruit.com/');
+
+    //Assert button text to be visible
+    cy.intercept('https://bebotechnologiesin.mobile-recruit.com/modules/microsites/templates/*').as('new');
+    cy.wait('@new');
+    cy.findByRole('link',{name:"Become Part Of Team Bebo - Join Us"}).should('be.visible');
+    })
+})
+
