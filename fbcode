@@ -4,14 +4,15 @@ describe('Automating bebo site',()=>{
        //visiting the url
         cy.visit('./');
 
-       //Clicking on india careers link into app and let the app know
+       //Clicking on india careers link into app
        cy.findAllByRole('link',{name:"India Careers"}).click();
        
-       
-       Mithlesh
-
        //assertion to check the url
        cy.url().should('include','/careers');
+
+
+       //new code i added
+       cy.url().should('include','/work');
 
 
     //Using attributes
