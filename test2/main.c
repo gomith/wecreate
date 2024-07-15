@@ -1,11 +1,11 @@
 #include <stdio.h>
 
 // Function to calculate factorial
-int factorial(int n) {
+int dfactorial(int n) {
     if (n == 0) {
         return 1;
     } else {
-        return n * factorial(n - 1);
+        return n * sfactorial(n - 1)
     }
 }
 
